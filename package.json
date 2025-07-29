@@ -1,0 +1,35 @@
+{
+  "name": "porto-walletconnect",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "biome format --write ."
+  },
+  "dependencies": {
+    "@tanstack/react-query": "5.45.1",
+    "next": "14.2.4",
+    "porto": "^0.0.58",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "^2.33.1",
+    "wagmi": "^2.16.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^20.12.10",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "bufferutil": "^4.0.8",
+    "encoding": "^0.1.13",
+    "lokijs": "^1.5.12",
+    "pino-pretty": "^10.3.1",
+    "supports-color": "^9.4.0",
+    "typescript": "^5.4.5",
+    "utf-8-validate": "^5.0.2"
+  },
+  "packageManager": "pnpm@9.11.0"
+}
