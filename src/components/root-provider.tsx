@@ -7,19 +7,19 @@ import { type State, WagmiProvider } from 'wagmi';
 
 import { getConfig } from '@/lib/wagmi/config';
 
-export function Providers(props: {
+export function RootProvider({
+  children,
+  initialState,
+}: {
   children: ReactNode;
   initialState?: State;
 }) {
   const [config] = useState(() => getConfig());
   const [queryClient] = useState(() => new QueryClient());
-
   return (
-    <WagmiProvider config={config} initialState={props.initialState}>
+    <WagmiProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>
-        <ConfirmationDialogProvider>
-          {props.children}
-        </ConfirmationDialogProvider>
+        <ConfirmationDialogProvider>{children}</ConfirmationDialogProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );
