@@ -111,11 +111,7 @@ export function useWcEventsManager(initialized: boolean) {
         const { method, params } = request;
 
         // If the chain is unsupported, reject the request
-        if (
-          !supportedChainIds.some(
-            (supportedChainId) => supportedChainId === chainId,
-          )
-        ) {
+        if (!supportedChains.some(({ id }) => id === chainId)) {
           return await walletKitClient.respondSessionRequest({
             topic,
             response: {
