@@ -1,15 +1,15 @@
 import { porto } from 'porto/wagmi';
 import { http, cookieStorage, createConfig, createStorage } from 'wagmi';
-import { baseSepolia, mainnet } from 'wagmi/chains';
+import { base, baseSepolia, mainnet } from 'wagmi/chains';
 
 export const portoConnector = porto();
 
-export const supportedChains = [baseSepolia];
-export const supportedChainIds = [baseSepolia.id, mainnet.id];
+export const supportedChains = [base, baseSepolia];
+export const supportedChainIds = [base.id, baseSepolia.id, mainnet.id];
 
 export function getConfig() {
   return createConfig({
-    chains: [baseSepolia, mainnet],
+    chains: [base, baseSepolia, mainnet],
     connectors: [porto()],
     multiInjectedProviderDiscovery: false,
     storage: createStorage({
@@ -17,8 +17,9 @@ export function getConfig() {
     }),
     ssr: true,
     transports: {
-      [mainnet.id]: http(),
+      [base.id]: http(),
       [baseSepolia.id]: http(),
+      [mainnet.id]: http(),
     },
   });
 }
