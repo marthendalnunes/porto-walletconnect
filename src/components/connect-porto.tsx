@@ -4,9 +4,8 @@ import { useConnect, useConnectors } from 'wagmi';
 import { Button } from './ui/button';
 
 export function ConnectPorto() {
-  const { connect, isPending, error } = useConnect();
+  const { connect, isPending } = useConnect();
 
-  console.log({ error });
   const connectors = useConnectors();
   return connectors?.map((connector) => (
     <Button

@@ -35,7 +35,11 @@ export function useWcEventsManager(initialized: boolean) {
           throw new Error('WalletKit client not initialized');
         }
 
-        const accounts = await portoConnector?.getAccounts();
+        if (!portoConnector) {
+          throw new Error('portoConnector not initialized');
+        }
+
+        const accounts = await portoConnector.getAccounts();
 
         // ------- namespaces builder util ------------ //
         const approvedNamespaces = buildApprovedNamespaces({
@@ -93,7 +97,6 @@ export function useWcEventsManager(initialized: boolean) {
   }, [queryClient]);
   const onSessionRequest = useCallback(
     async (event: WalletKitTypes.SessionRequest) => {
-      console.log({ event });
       try {
         if (!walletKitClient) {
           throw new Error('WalletKit client not initialized');
@@ -103,7 +106,7 @@ export function useWcEventsManager(initialized: boolean) {
           throw new Error('portoConnector not initialized');
         }
 
-        const provider = await portoConnector?.getProvider();
+        const provider = await portoConnector.getProvider();
         const { topic, params: eventParams, id } = event;
         const { request, chainId: rawChainId } = eventParams;
         const chainId = Number(rawChainId.replace('eip155:', ''));
@@ -126,7 +129,6 @@ export function useWcEventsManager(initialized: boolean) {
         }
 
         const dialogConfirmed = await openDialog();
-        console.log({ dialogConfirmed });
         if (dialogConfirmed) {
           const result = await provider?.request({
             method,
