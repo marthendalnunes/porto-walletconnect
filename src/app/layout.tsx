@@ -6,9 +6,9 @@ import { headers } from 'next/headers';
 import type { ReactNode } from 'react';
 import { cookieToInitialState } from 'wagmi';
 
+import { Footer } from '@/components/footer';
 import { getConfig } from '../lib/wagmi/config';
 import { Providers } from './providers';
-import { Footer } from '@/components/footer';
 
 const inter = Inter({ subsets: ['latin'] });
 

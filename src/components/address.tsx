@@ -1,8 +1,8 @@
 import { cn } from '@/lib/utils';
-import { supportedChains } from '@/lib/wagmi/config';
 import Link from 'next/link';
 import type { HTMLAttributes } from 'react';
 import type { Address as AddressType, Chain } from 'viem';
+import { baseSepolia } from 'viem/chains';
 
 interface AddressProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
   address: AddressType;
@@ -12,7 +12,7 @@ interface AddressProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
   chain?: Chain;
 }
 
-const defaultChain = supportedChains[0];
+const defaultChain = baseSepolia;
 
 export const Address = ({
   address,

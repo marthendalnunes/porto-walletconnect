@@ -1,5 +1,5 @@
 import { useConfirmationDialog } from '@/components/confirmation-dialog-provider';
-import { supportedChainIds } from '@/lib/wagmi/config';
+import { supportedChains } from '@/lib/wagmi/config';
 import { createEmitter } from '@/lib/wagmi/emitter';
 import type { WalletKitTypes } from '@reown/walletkit';
 import { useQueryClient } from '@tanstack/react-query';
@@ -47,7 +47,7 @@ export function useWcEventsManager(initialized: boolean) {
           supportedNamespaces: {
             eip155: {
               // TODO: refactor to get all supported chains
-              chains: supportedChainIds.map((chainId) => `eip155:${chainId}`),
+              chains: supportedChains.map(({ id }) => `eip155:${id}`),
               methods: [
                 'eth_sendTransaction',
                 'personal_sign',
@@ -57,9 +57,7 @@ export function useWcEventsManager(initialized: boolean) {
               events: ['accountsChanged', 'chainChanged'],
               accounts:
                 accounts?.flatMap((account) =>
-                  supportedChainIds.map(
-                    (chainId) => `eip155:${chainId}:${account}`,
-                  ),
+                  supportedChains.map(({ id }) => `eip155:${id}:${account}`),
                 ) ?? [],
             },
           },

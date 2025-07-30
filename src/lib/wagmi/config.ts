@@ -1,15 +1,15 @@
 import { porto } from 'porto/wagmi';
 import { http, cookieStorage, createConfig, createStorage } from 'wagmi';
-import { baseSepolia } from 'wagmi/chains';
+import { baseSepolia, mainnet } from 'wagmi/chains';
 
 export const portoConnector = porto();
 
-export const supportedChains = [baseSepolia];
-export const supportedChainIds = [baseSepolia.id];
+// Adding mainnet only for being able to connecting to dapps via wc
+export const supportedChains = [baseSepolia, mainnet] as const;
 
 export function getConfig() {
   return createConfig({
-    chains: [baseSepolia],
+    chains: supportedChains,
     connectors: [porto()],
     multiInjectedProviderDiscovery: false,
     storage: createStorage({
@@ -17,6 +17,7 @@ export function getConfig() {
     }),
     ssr: true,
     transports: {
+      [mainnet.id]: http(),
       [baseSepolia.id]: http(),
     },
   });

@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import type { Address } from 'viem';
 import { useAccount, useChainId } from 'wagmi';
 
-import { supportedChainIds } from '@/lib/wagmi/config';
+import { supportedChains } from '@/lib/wagmi/config';
 import { useWalletKitClient } from './use-wallet-kit-client';
 
 /**
@@ -35,8 +35,8 @@ export function useWcAccountsSync() {
           ...previousNamespaces,
           eip155: {
             ...previousNamespaces.eip155,
-            accounts: supportedChainIds.map(
-              (chainId) => `eip155:${chainId}:${portoAccount}`,
+            accounts: supportedChains.map(
+              ({ id }) => `eip155:${id}:${portoAccount}`,
             ),
           },
         };
