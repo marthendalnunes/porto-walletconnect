@@ -1,11 +1,49 @@
 import { porto } from 'porto/wagmi';
+
 import { http, cookieStorage, createConfig, createStorage } from 'wagmi';
-import { baseSepolia, mainnet } from 'wagmi/chains';
+import {
+  arbitrum,
+  arbitrumSepolia,
+  base,
+  baseSepolia,
+  berachain,
+  berachainBepolia,
+  celo,
+  gnosis,
+  hoodi,
+  mainnet,
+  optimism,
+  optimismSepolia,
+  polygon,
+  sepolia,
+} from 'wagmi/chains';
 
 export const portoConnector = porto();
 
-// Adding mainnet only for being able to connecting to dapps via wc
-export const supportedChains = [baseSepolia, mainnet] as const;
+export const supportedChains = [
+  arbitrum,
+  arbitrumSepolia,
+  base,
+  baseSepolia,
+  berachain,
+  berachainBepolia,
+  celo,
+  gnosis,
+  hoodi,
+  mainnet,
+  optimism,
+  optimismSepolia,
+  polygon,
+  sepolia,
+] as const;
+
+const transports = supportedChains.reduce(
+  (acc, { id }) => {
+    acc[id] = http();
+    return acc;
+  },
+  {} as Record<(typeof supportedChains)[number]['id'], ReturnType<typeof http>>,
+);
 
 export function getConfig() {
   return createConfig({
@@ -16,10 +54,7 @@ export function getConfig() {
       storage: cookieStorage,
     }),
     ssr: true,
-    transports: {
-      [mainnet.id]: http(),
-      [baseSepolia.id]: http(),
-    },
+    transports,
   });
 }
 
